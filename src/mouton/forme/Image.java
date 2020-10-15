@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Image implements Iterable<Forme>, Comparable<Image>, Serializable {
+public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, Transformable, Calcul {
 
 	List<Forme> formes;
 	
@@ -33,10 +33,11 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable {
 	 * 
 	 * @return double : la somme du perimetre des formes qui compose l'image
 	 */
-	public double getPerimetre() {
+	@Override
+	public double perimetre() {
 		double totalPerimetre = 0;
 		for(Forme forme: this) {
-			totalPerimetre += forme.getPerimetre();
+			totalPerimetre += forme.perimetre();
 		}
 		
 		return totalPerimetre;
@@ -46,10 +47,11 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable {
 	 * 
 	 * @return double : la somme de l'aires des formes qui compose l'image
 	 */
-	public double getAire() {
+	@Override
+	public double air() {
 		double totalAire = 0;
 		for(Forme forme: this) {
-			totalAire += forme.getAir();
+			totalAire += forme.air();
 		}
 		
 		return totalAire;
@@ -63,7 +65,7 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable {
 	public int perimetreInferieurA(double seuil) {
 		int cpt = 0;
 		
-		for(Forme forme: this) if(forme.getPerimetre() < seuil) cpt++;
+		for(Forme forme: this) if(forme.perimetre() < seuil) cpt++;
 		
 		return cpt;
 	}
@@ -74,21 +76,26 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable {
 	
 	@Override
 	public int compareTo(Image image) {
-		return (int) (this.getAire() - image.getAire());
+		return (int) (this.air() - image.air());
 	}
 	//Transformation
+	@Override
 	public void homothétie(final int rapport) {
 		for(Forme forme: this) forme.homothétie(rapport);
 	}
+	@Override
 	public void translation(final int dx, final int dy) {
 		for(Forme forme: this) forme.translation(dx, dy);
 	}
+	@Override
 	public void rotation() {
 		for(Forme forme: this) forme.rotation();
 	}
+	@Override
 	public void symétrieCentrale() {
 		for(Forme forme: this) forme.symétrieCentrale();
 	}
+	@Override
 	public void symétrieAxiale() {
 		for(Forme forme: this) forme.symétrieAxiale();
 	}

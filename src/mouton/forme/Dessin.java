@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-public class Dessin implements Iterable<Image>, Serializable {
+public class Dessin implements Iterable<Image>, Serializable, Transformable, Calcul {
 	
 	private List<Image> images;
 	
@@ -29,7 +30,7 @@ public class Dessin implements Iterable<Image>, Serializable {
 		
 		for(Image image: this) {
 			
-			if(image.getAire() < seuil) cpt++;
+			if(image.air() < seuil) cpt++;
 		}
 		
 		return cpt;
@@ -38,20 +39,44 @@ public class Dessin implements Iterable<Image>, Serializable {
 	public void sort() {
 		Collections.sort(images);
 	}
+	@Override
+	public double perimetre() {
+		double totalPerimetre = 0;
+		for(Image image: this) {
+			totalPerimetre += image.perimetre();
+		}
+		
+		return totalPerimetre;
+	}
+
+	@Override
+	public double air() {
+		double totalAire = 0;
+		for(Image image: this) {
+			totalAire += image.air();
+		}
+		
+		return totalAire;
+	}
 	
 	//Transformation
+	@Override
 	public void homothétie(final int rapport) {
 		for(Image image: this) image.homothétie(rapport);
 	}
+	@Override
 	public void translation(final int dx, final int dy) {
 		for(Image image: this) image.translation(dx, dy);
 	}
+	@Override
 	public void rotation() {
 		for(Image image: this) image.rotation();
 	}
+	@Override
 	public void symétrieCentrale() {
 		for(Image image: this) image.symétrieCentrale();
 	}
+	@Override
 	public void symétrieAxiale() {
 		for(Image image: this) image.symétrieAxiale();
 	}
@@ -79,5 +104,6 @@ public class Dessin implements Iterable<Image>, Serializable {
 			return false;
 		return true;
 	}
+
 
 }

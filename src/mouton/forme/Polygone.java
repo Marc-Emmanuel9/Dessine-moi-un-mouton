@@ -1,30 +1,25 @@
 package mouton.forme;
 
-public class Polygone extends Forme implements Dessinable, Comparable<Forme>{
+public class Polygone extends Forme implements Transformable, Calcul, Comparable<Forme>{
 
+	
 	public Polygone(final int x, final int y) {
-		super(x, y);
-	}
-
-	@Override
-	public void dessiner() {
-		// TODO Auto-generated method stub
-		
+		super(new Point(x, y));
 	}
 
 	@Override
 	public int compareTo(Forme forme) {
-		return (int) (this.getPerimetre() - forme.getPerimetre());
+		return (int) (this.perimetre() - forme.perimetre());
 	}
 
 	@Override
-	public double getPerimetre() {
+	public double perimetre() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public double getAir() {
+	public double air() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -44,6 +39,18 @@ public class Polygone extends Forme implements Dessinable, Comparable<Forme>{
 
 	@Override
 	public void symétrieAxiale() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void homothétie(int rapport) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void translation(int dx, int dy) {
 		// TODO Auto-generated method stub
 		
 	}
