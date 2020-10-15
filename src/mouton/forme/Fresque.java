@@ -25,7 +25,7 @@ public class Fresque implements Serializable, Iterable<Dessin> {
 		String toString = "";
 		int cptImg = 0;
 		int cptDess = 0;
-		for(Dessin dessin: dessins) {
+		for(Dessin dessin: this) {
 			toString += "\tDessin "+cptDess+"\n";
 			for(Image image: dessin) {
 				toString += "\tImage "+cptImg+"\n";
