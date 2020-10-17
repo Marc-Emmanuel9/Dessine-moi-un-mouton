@@ -80,7 +80,7 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 		return cpt;
 	}
 	
-	public void tri() {
+	public void sort() {
 		Collections.sort(formes);
 	}
 	

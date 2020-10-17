@@ -8,7 +8,7 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Fresque implements Serializable, Iterable<Dessin> {
+public class Fresque implements Serializable, Iterable<Dessin>, Transformable, Calcul {
 
 	private static final long serialVersionUID = 6819328652744719573L;
 	Set<Dessin> dessins = new TreeSet<Dessin>();
@@ -29,6 +29,19 @@ public class Fresque implements Serializable, Iterable<Dessin> {
 		this(fresque.dessins);
 	}
 	
+	public void sortImageByAir(){
+		for(Dessin dessin: this) {
+			dessin.sort();
+		}
+	}
+	
+	public void sortFormeByPerimetre() {
+		for(Dessin dessin: this) {
+			for(Image image: dessin) {
+				image.sort();
+			}
+		}
+	}
 	@Override
 	public Iterator<Dessin> iterator() {
 		return this.dessins.iterator();
@@ -74,5 +87,51 @@ public class Fresque implements Serializable, Iterable<Dessin> {
 		} else if (!dessins.equals(other.dessins))
 			return false;
 		return true;
+	}
+
+	@Override
+	public double perimetre() {
+		double totalPerimetre = 0;
+		
+		for(Dessin dessin: this) totalPerimetre += dessin.perimetre();
+		
+		return totalPerimetre;
+	}
+
+	@Override
+	public double air() {
+		double totalAir = 0;
+		
+		for(Dessin dessin: this) totalAir += dessin.air();
+		
+		return totalAir;
+	}
+
+	@Override
+	public void homothétie(int rapport) {
+		for(Dessin dessin: this) dessin.homothétie(rapport);
+	}
+
+	@Override
+	public void translation(int dx, int dy) {
+		for(Dessin dessin: this) dessin.translation(dx, dy);;
+		
+	}
+
+	@Override
+	public void rotation() {
+		for(Dessin dessin: this) dessin.rotation();;
+		
+	}
+
+	@Override
+	public void symétrieCentrale() {
+		for(Dessin dessin: this) dessin.symétrieCentrale();
+		
+	}
+
+	@Override
+	public void symétrieAxiale() {
+		for(Dessin dessin: this) dessin.symétrieAxiale();
 	}
 }

@@ -12,16 +12,6 @@ import mouton.forme.*;
  * @version 1.0
  */
 public class FileManager {
-
-	private Object object;
-	
-	/**
-	 * 
-	 * @param object
-	 */
-	public FileManager(final Object object) {
-		this.object = object;
-	}
 	
 	public FileManager() {
 	}
@@ -59,10 +49,10 @@ public class FileManager {
 	 * @throws FileNotFoundException  Si jamais le fichier n'est pas trouvée
 	 * @throws IOException
 	 */
-	public void save(final String folderName) throws FileNotFoundException, IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folderName+".txt"));
+	public void save(final String folderName, Object object) throws FileNotFoundException, IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(folderName));
 		oos.writeInt(0);
-		oos.writeObject(this.object);
+		oos.writeObject(object);
 		oos.close();
 	}
 	
