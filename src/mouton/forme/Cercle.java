@@ -1,5 +1,10 @@
 package mouton.forme;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 
 public class Cercle extends Forme implements Transformable, Calcul, Comparable<Forme>{
 	
@@ -11,19 +16,28 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 		this.rayon = rayon;
 	}
 
-
+	/**
+	 * @see Calcul
+	 */
 	@Override
 	public double perimetre() {
 		// TODO Auto-generated method stub
 		return 0.0;
 	}
-
+	
+	/**
+	 * @see Calcul
+	 */
 	@Override
 	public double air() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 	
+	/**
+	 * 
+	 * @return rayon		Le rayon du cercle
+	 */
 	public int getRayon() {
 		return rayon;
 	}
@@ -34,43 +48,55 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	}
 	//Tansformation 
 	
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void rotation() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieCentrale() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieAxiale() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public int compareTo(Forme arg0) {
-		// TODO Auto-generated method stub
-		return (int) (this.perimetre() - arg0.perimetre());
-	}
-
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void homothétie(int rapport) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void translation(int dx, int dy) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int compareTo(Forme arg0) {
+		// TODO Auto-generated method stub
+		return (int) (this.perimetre() - arg0.perimetre());
 	}
 
 	@Override
@@ -95,5 +121,5 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 			return false;
 		return true;
 	}
-
+	
 }

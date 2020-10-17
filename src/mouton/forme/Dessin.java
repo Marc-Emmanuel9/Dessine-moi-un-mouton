@@ -1,20 +1,33 @@
 package mouton.forme;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 public class Dessin implements Iterable<Image>, Serializable, Transformable, Calcul {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4190658478994082931L;
 	private List<Image> images;
 	
+	/**
+	 * 
+	 * @param images
+	 */
 	public Dessin(final List<Image> images) {
 		this.images = images;
 	}
 	
-	
+	/**
+	 * 
+	 * @param dessin
+	 */
 	public Dessin(final Dessin dessin) {
 		this(dessin.images);
 	}
@@ -25,6 +38,11 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 		return this.images.iterator();
 	}
 	
+	/**
+	 * 
+	 * @param seuil		L'air servant de comparaison.
+	 * @return cpt		Le nombre d'image ayant une air inferieur à seuil.
+	 */
 	public int airInferieurA(double seuil) {
 		int cpt = 0;
 		
@@ -39,6 +57,10 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 	public void sort() {
 		Collections.sort(images);
 	}
+	
+	/**
+	 * @see Calcul		Interface listant toute ces fonction.
+	 */
 	@Override
 	public double perimetre() {
 		double totalPerimetre = 0;
@@ -48,7 +70,10 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 		
 		return totalPerimetre;
 	}
-
+	
+	/**
+	 * @see Calcul		Interface listant toute ces fonction.
+	 */
 	@Override
 	public double air() {
 		double totalAire = 0;
@@ -60,26 +85,48 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 	}
 	
 	//Transformation
+	
+	/**
+	 * @see Transformable		Interface listant toute ces fonction.
+	 */
 	@Override
 	public void homothétie(final int rapport) {
 		for(Image image: this) image.homothétie(rapport);
 	}
+	
+	/**
+	 * @see Transformable		Interface listant toute ces fonction.
+	 */
 	@Override
 	public void translation(final int dx, final int dy) {
 		for(Image image: this) image.translation(dx, dy);
 	}
+	
+	/**
+	 * @see Transformable		Interface listant toute ces fonction.
+	 */
 	@Override
 	public void rotation() {
 		for(Image image: this) image.rotation();
 	}
+	
+	/**
+	 * @see Transformable		Interface listant toute ces fonction.
+	 */
 	@Override
 	public void symétrieCentrale() {
 		for(Image image: this) image.symétrieCentrale();
 	}
+	
+	/**
+	 * @see Transformable		Interface listant toute ces fonction.
+	 */
 	@Override
 	public void symétrieAxiale() {
 		for(Image image: this) image.symétrieAxiale();
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,13 +1,26 @@
 package mouton.forme;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 public abstract class Forme implements Comparable<Forme>, Transformable, Calcul{
 	
 	private Point centre;
 	
+	/**
+	 * 
+	 * @param centre
+	 */
 	public Forme(final Point centre) {
 		this.centre = centre;
 	}
-
+	
+	/**
+	 * 
+	 * @return Centre	Retourne le point qui sert de centre à la forme.
+	 */
 	public Point getCentre() {return this.centre;}
 
 	@Override

@@ -1,16 +1,35 @@
 package mouton.forme;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 public class Point{
 
 	private int x;
 	private int y;
 	
+	/**
+	 *
+	 * @param x
+	 * @param y
+	 */
 	public Point(final int x, final int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
+	/**
+	 * 
+	 * @return x	La coordonnée x du point
+	 */
 	public int getX() {return this.x;}
+	
+	/**
+	 * 
+	 * @return y	La coordonnée y du point
+	 */
 	public int getY() {return this.y;}
 
 	

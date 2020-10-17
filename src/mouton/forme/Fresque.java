@@ -3,18 +3,32 @@ package mouton.forme;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 public class Fresque implements Serializable, Iterable<Dessin> {
+
+	private static final long serialVersionUID = 6819328652744719573L;
+	Set<Dessin> dessins = new TreeSet<Dessin>();
 	
-	Set<Dessin> dessins = new HashSet<Dessin>();
-	
+	/**
+	 * 
+	 * @param dessins
+	 */
 	public Fresque(final Set<Dessin> dessins) {
 		this.dessins = dessins;
 	}
 	
+	/**
+	 * 
+	 * @param fresque
+	 */
 	public Fresque(final Fresque fresque) {
 		this(fresque.dessins);
 	}
-
+	
 	@Override
 	public Iterator<Dessin> iterator() {
 		return this.dessins.iterator();
@@ -26,11 +40,11 @@ public class Fresque implements Serializable, Iterable<Dessin> {
 		int cptImg = 0;
 		int cptDess = 0;
 		for(Dessin dessin: this) {
-			toString += "\tDessin "+cptDess+"\n";
+			toString += "\t+Dessin "+(cptDess++)+"\n";
 			for(Image image: dessin) {
-				toString += "\tImage "+cptImg+"\n";
+				toString += "\t\t+Image "+(cptImg++)+"\n";
 				for(Forme forme: image) {
-					toString += forme + "\n";
+					toString += "\t\t\t+"+forme + "\n";
 				}
 			}
 		}
@@ -61,6 +75,4 @@ public class Fresque implements Serializable, Iterable<Dessin> {
 			return false;
 		return true;
 	}
-	
-
 }

@@ -1,12 +1,16 @@
 package mouton.forme;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
+/**
+ * 
+ * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
+ * @version 1.0
+ */
 public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, Transformable, Calcul {
 
+	private static final long serialVersionUID = 8860160605916574856L;
 	List<Forme> formes;
 	
 	/**
@@ -18,6 +22,10 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 		this.formes = formes;
 	}
 	
+	/**
+	 * 
+	 * @param image
+	 */
 	public Image(final Image image) {
 		this(image.formes);
 	}
@@ -31,7 +39,8 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 	
 	/**
 	 * 
-	 * @return double : la somme du perimetre des formes qui compose l'image
+	 * @return totalPerimetre		la somme du perimetre des formes qui compose l'image
+	 * @see Calcul
 	 */
 	@Override
 	public double perimetre() {
@@ -45,7 +54,8 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 	
 	/**
 	 * 
-	 * @return double : la somme de l'aires des formes qui compose l'image
+	 * @return totalAire		la somme de l'aires des formes qui compose l'image
+	 * @see Calcul
 	 */
 	@Override
 	public double air() {
@@ -59,8 +69,8 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 	
 	/**
 	 * 
-	 * @param seuil
-	 * @return int: le nombre de forme dont le périmetre est inferieur à seuil
+	 * @param seuil		Le périmètre servant de comparaison.
+	 * @return cpt		Le nombre d'image ayant un périmètre inferieur à seuil.
 	 */
 	public int perimetreInferieurA(double seuil) {
 		int cpt = 0;
@@ -79,22 +89,42 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 		return (int) (this.air() - image.air());
 	}
 	//Transformation
+	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void homothétie(final int rapport) {
 		for(Forme forme: this) forme.homothétie(rapport);
 	}
+	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void translation(final int dx, final int dy) {
 		for(Forme forme: this) forme.translation(dx, dy);
 	}
+	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void rotation() {
 		for(Forme forme: this) forme.rotation();
 	}
+	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieCentrale() {
 		for(Forme forme: this) forme.symétrieCentrale();
 	}
+	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieAxiale() {
 		for(Forme forme: this) forme.symétrieAxiale();
