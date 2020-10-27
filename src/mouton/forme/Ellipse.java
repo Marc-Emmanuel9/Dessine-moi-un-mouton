@@ -5,10 +5,10 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Ellipse extends Forme implements Transformable, Calcul, Comparable<Forme>{
+public final class Ellipse extends Forme implements Comparable<Forme>{
 
 
-	private int demiGrandAxe, DemiPetitAxe;
+	private final int demiGrandAxe, demiPetitAxe;
 	
 	/**
 	 * 
@@ -17,16 +17,12 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @param demiGrandAxe
 	 * @param demiPetitAxe
 	 */
-	public Ellipse(final int x, final int y, final int demiGrandAxe, final int demiPetitAxe) {
-		super(new Point(x, y));
+	public Ellipse(final Point point, final int demiGrandAxe, final int demiPetitAxe) {
+		super(point);
 		this.demiGrandAxe = demiGrandAxe;
-		this.DemiPetitAxe = demiPetitAxe;
+		this.demiPetitAxe = demiPetitAxe;
 	}
 
-	@Override
-	public int compareTo(Forme arg0) {
-		return (int) (this.perimetre() - arg0.perimetre());
-	}
 	
 	/**
 	 * @see Calcul
@@ -41,7 +37,7 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Calcul
 	 */
 	@Override
-	public double air() {
+	public double aire() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -50,7 +46,7 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Transformable
 	 */
 	@Override
-	public void rotation() {
+	public Forme rotation() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -59,7 +55,7 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieCentrale() {
+	public Forme symétrieCentrale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -68,7 +64,7 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieAxiale() {
+	public Forme symétrieAxiale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -77,7 +73,7 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Transformable
 	 */
 	@Override
-	public void homothétie(int rapport) {
+	public Forme homothétie(int rapport) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -86,16 +82,17 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 	 * @see Transformable
 	 */
 	@Override
-	public void translation(int dx, int dy) {
-		// TODO Auto-generated method stub
-		
+	public Forme translation(int dx, int dy) {
+		return new Ellipse(new Point(this.getCentre().getX() + dx, this.getCentre().getY() + dy)
+				, demiGrandAxe, demiPetitAxe);
+				
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + DemiPetitAxe;
+		result = prime * result + demiPetitAxe;
 		result = prime * result + demiGrandAxe;
 		return result;
 	}
@@ -109,11 +106,16 @@ public class Ellipse extends Forme implements Transformable, Calcul, Comparable<
 		if (getClass() != obj.getClass())
 			return false;
 		Ellipse other = (Ellipse) obj;
-		if (DemiPetitAxe != other.DemiPetitAxe)
+		if (demiPetitAxe != other.demiPetitAxe)
 			return false;
 		if (demiGrandAxe != other.demiGrandAxe)
 			return false;
 		return true;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Ellipse de centre " + super.getCentre() + " et, de demi grand axe " + this.demiGrandAxe 
+				+ " et demi petit axe " + this.demiPetitAxe;
+	}
 }

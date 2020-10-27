@@ -1,6 +1,5 @@
 package mouton.forme;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,17 +7,17 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, Transformable, Calcul {
+public class Image implements Iterable<Forme>, Comparable<Image>, Calcul {
 
-	private static final long serialVersionUID = 8860160605916574856L;
-	List<Forme> formes;
+
+	Set<Forme> formes;
 	
 	/**
 	 * 
 	 * @param formes
 	 * 
 	 */
-	public Image(final List<Forme> formes) {
+	public Image(final Set<Forme> formes) {
 		this.formes = formes;
 	}
 	
@@ -58,10 +57,10 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 	 * @see Calcul
 	 */
 	@Override
-	public double air() {
+	public double aire() {
 		double totalAire = 0;
 		for(Forme forme: this) {
-			totalAire += forme.air();
+			totalAire += forme.aire();
 		}
 		
 		return totalAire;
@@ -80,54 +79,16 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Serializable, 
 		return cpt;
 	}
 	
+	
 	public void sort() {
-		Collections.sort(formes);
+		List<Forme> formesBis = new ArrayList<>(formes);
+		Collections.sort(formesBis);
+		this.formes = new HashSet<>(formesBis);
 	}
 	
 	@Override
 	public int compareTo(Image image) {
-		return (int) (this.air() - image.air());
-	}
-	//Transformation
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public void homothétie(final int rapport) {
-		for(Forme forme: this) forme.homothétie(rapport);
-	}
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public void translation(final int dx, final int dy) {
-		for(Forme forme: this) forme.translation(dx, dy);
-	}
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public void rotation() {
-		for(Forme forme: this) forme.rotation();
-	}
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public void symétrieCentrale() {
-		for(Forme forme: this) forme.symétrieCentrale();
-	}
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public void symétrieAxiale() {
-		for(Forme forme: this) forme.symétrieAxiale();
+		return (int) (this.aire() - image.aire());
 	}
 
 	@Override

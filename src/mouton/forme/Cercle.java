@@ -6,16 +6,16 @@ package mouton.forme;
  * @version 1.0
  */
 
-public class Cercle extends Forme implements Transformable, Calcul, Comparable<Forme>{
+public final class Cercle extends Forme implements Comparable<Forme>{
 	
 
-	private int rayon;
+	private  final int rayon;
 	
-	public Cercle(final int x, final int y, final int rayon) {
-		super(new Point(x, y));
+	public Cercle(final Point point, final int rayon) {
+		super(point);
 		this.rayon = rayon;
 	}
-
+	
 	/**
 	 * @see Calcul
 	 */
@@ -29,7 +29,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Calcul
 	 */
 	@Override
-	public double air() {
+	public double aire() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -44,7 +44,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	
 	@Override
 	public String toString() {
-		return "Cercle de centre ("+super.getCentre().getX()+","+super.getCentre().getX()+") et de rayon "+this.getRayon();
+		return "Cercle de centre "+super.getCentre()+" et de rayon "+this.getRayon();
 	}
 	//Tansformation 
 	
@@ -52,7 +52,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Transformable
 	 */
 	@Override
-	public void rotation() {
+	public Forme rotation() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -61,7 +61,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieCentrale() {
+	public Forme symétrieCentrale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -70,7 +70,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieAxiale() {
+	public Forme symétrieAxiale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -79,7 +79,7 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Transformable
 	 */
 	@Override
-	public void homothétie(int rapport) {
+	public Forme homothétie(int rapport) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -88,16 +88,10 @@ public class Cercle extends Forme implements Transformable, Calcul, Comparable<F
 	 * @see Transformable
 	 */
 	@Override
-	public void translation(int dx, int dy) {
-		// TODO Auto-generated method stub
+	public Forme translation(int dx, int dy) {
 		
 	}
 	
-	@Override
-	public int compareTo(Forme arg0) {
-		// TODO Auto-generated method stub
-		return (int) (this.perimetre() - arg0.perimetre());
-	}
 
 	@Override
 	public int hashCode() {

@@ -1,6 +1,5 @@
 package mouton.forme;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,19 +7,18 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Dessin implements Iterable<Image>, Serializable, Transformable, Calcul {
+public class Dessin implements Iterable<Image>, Calcul {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4190658478994082931L;
-	private List<Image> images;
+	private Set<Image> images;
 	
 	/**
 	 * 
 	 * @param images
 	 */
-	public Dessin(final List<Image> images) {
+	public Dessin(final Set<Image> images) {
 		this.images = images;
 	}
 	
@@ -46,16 +44,15 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 	public int airInferieurA(double seuil) {
 		int cpt = 0;
 		
-		for(Image image: this) {
-			
-			if(image.air() < seuil) cpt++;
-		}
+		for(Image image: this) if(image.aire() < seuil) cpt++;
 		
 		return cpt;
 	}
 	
 	public void sort() {
-		Collections.sort(images);
+		List<Image> imagesBis = new ArrayList<Image>(images);
+		Collections.sort(imagesBis);
+		this.images = new HashSet<>(imagesBis);
 	}
 	
 	/**
@@ -75,55 +72,13 @@ public class Dessin implements Iterable<Image>, Serializable, Transformable, Cal
 	 * @see Calcul		Interface listant toute ces fonction.
 	 */
 	@Override
-	public double air() {
+	public double aire() {
 		double totalAire = 0;
 		for(Image image: this) {
-			totalAire += image.air();
+			totalAire += image.aire();
 		}
 		
 		return totalAire;
-	}
-	
-	//Transformation
-	
-	/**
-	 * @see Transformable		Interface listant toute ces fonction.
-	 */
-	@Override
-	public void homothétie(final int rapport) {
-		for(Image image: this) image.homothétie(rapport);
-	}
-	
-	/**
-	 * @see Transformable		Interface listant toute ces fonction.
-	 */
-	@Override
-	public void translation(final int dx, final int dy) {
-		for(Image image: this) image.translation(dx, dy);
-	}
-	
-	/**
-	 * @see Transformable		Interface listant toute ces fonction.
-	 */
-	@Override
-	public void rotation() {
-		for(Image image: this) image.rotation();
-	}
-	
-	/**
-	 * @see Transformable		Interface listant toute ces fonction.
-	 */
-	@Override
-	public void symétrieCentrale() {
-		for(Image image: this) image.symétrieCentrale();
-	}
-	
-	/**
-	 * @see Transformable		Interface listant toute ces fonction.
-	 */
-	@Override
-	public void symétrieAxiale() {
-		for(Image image: this) image.symétrieAxiale();
 	}
 	
 	

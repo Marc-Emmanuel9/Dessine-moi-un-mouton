@@ -1,6 +1,5 @@
 package mouton.forme;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,15 +7,16 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Fresque implements Serializable, Iterable<Dessin>, Transformable, Calcul {
+public class Fresque implements Iterable<Dessin>, Calcul {
 
-	private static final long serialVersionUID = 6819328652744719573L;
-	Set<Dessin> dessins = new TreeSet<Dessin>();
+	private Set<Dessin> dessins;
 	
 	/**
 	 * 
 	 * @param dessins
 	 */
+
+	
 	public Fresque(final Set<Dessin> dessins) {
 		this.dessins = dessins;
 	}
@@ -49,9 +49,9 @@ public class Fresque implements Serializable, Iterable<Dessin>, Transformable, C
 	
 	@Override
 	public String toString() {
-		String toString = "";
-		int cptImg = 0;
-		int cptDess = 0;
+		String toString = "Fresque\n";
+		int cptImg = 1;
+		int cptDess = 1;
 		for(Dessin dessin: this) {
 			toString += "\t+Dessin "+(cptDess++)+"\n";
 			for(Image image: dessin) {
@@ -99,39 +99,12 @@ public class Fresque implements Serializable, Iterable<Dessin>, Transformable, C
 	}
 
 	@Override
-	public double air() {
+	public double aire() {
 		double totalAir = 0;
 		
-		for(Dessin dessin: this) totalAir += dessin.air();
+		for(Dessin dessin: this) totalAir += dessin.aire();
 		
 		return totalAir;
 	}
 
-	@Override
-	public void homothétie(int rapport) {
-		for(Dessin dessin: this) dessin.homothétie(rapport);
-	}
-
-	@Override
-	public void translation(int dx, int dy) {
-		for(Dessin dessin: this) dessin.translation(dx, dy);;
-		
-	}
-
-	@Override
-	public void rotation() {
-		for(Dessin dessin: this) dessin.rotation();;
-		
-	}
-
-	@Override
-	public void symétrieCentrale() {
-		for(Dessin dessin: this) dessin.symétrieCentrale();
-		
-	}
-
-	@Override
-	public void symétrieAxiale() {
-		for(Dessin dessin: this) dessin.symétrieAxiale();
-	}
 }

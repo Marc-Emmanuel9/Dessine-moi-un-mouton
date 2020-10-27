@@ -5,11 +5,11 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Ligne extends Forme implements Transformable, Calcul, Comparable<Forme>{
+public final class Ligne extends Forme implements Comparable<Forme>{
 	
 
-	private int epaisseur;
-	private Point point;
+	private final int epaisseur;
+	private final Point point;
 	
 	/**
 	 * 
@@ -19,17 +19,12 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @param y2
 	 * @param epaisseur
 	 */
-	public Ligne(final int x1, final int y1, final int x2, final int y2, final int epaisseur) {
-		super(new Point(x1, y1)); 
-		this.point = new Point(x2, y2);
+	public Ligne(final Point p1, final Point p2, final int epaisseur) {
+		super(p1); 
+		this.point = p2;
 		this.epaisseur = epaisseur;
 	}
 
-
-	@Override
-	public int compareTo(Forme arg0) {
-		return (int) (this.perimetre() - arg0.perimetre());
-	}
 
 	/**
 	 * @see Calcul
@@ -44,16 +39,21 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @see Calcul
 	 */
 	@Override
-	public double air() {
+	public double aire() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public int longueur() {
+		return (int) Math.sqrt(Math.pow(this.getCentre().getX() - this.point.getX(), 2) + 
+					Math.pow(this.getCentre().getY() - this.point.getY(), 2));
 	}
 
 	/**
 	 * @see Transformable
 	 */
 	@Override
-	public void rotation() {
+	public Forme rotation() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -62,7 +62,7 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieCentrale() {
+	public Forme symétrieCentrale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -71,7 +71,7 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @see Transformable
 	 */
 	@Override
-	public void symétrieAxiale() {
+	public Forme symétrieAxiale() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -80,7 +80,7 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @see Transformable
 	 */
 	@Override
-	public void homothétie(int rapport) {
+	public Forme homothétie(int rapport) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -89,8 +89,7 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 	 * @see Transformable
 	 */
 	@Override
-	public void translation(int dx, int dy) {
-		// TODO Auto-generated method stub
+	public Forme translation(int dx, int dy) {
 		
 	}
 	
@@ -123,6 +122,10 @@ public class Ligne extends Forme implements Transformable, Calcul, Comparable<Fo
 		return true;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Ligne allant des coordonnées " + super.getCentre() + " à " + this.point +
+				" et d'epaisseur " + this.epaisseur;
+	}
+	
 }

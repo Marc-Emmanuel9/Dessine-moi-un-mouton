@@ -1,11 +1,7 @@
 package mouton;
 
-import mouton.exception.EmptyFileException;
-import mouton.exception.NoFresqueException;
-import mouton.file.FileManager;
 import mouton.forme.*;
-import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * 
@@ -16,214 +12,120 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("ckfcejdf");
-		System.out.println("CLS");
+		Fresque f =genererUneFresque();
+		scenario(f);
 	}
 	
-	public static void scenario() throws IOException, ClassNotFoundException, EmptyFileException
-															,FileNotFoundException, NoFresqueException{
-		//
-		Scanner sc = new Scanner(System.in);
-		FileManager fm = new FileManager();
-		FileManager fm2;
-		Fresque fresqueUtilisateur;
+	public static void scenario(final Fresque fresque) {
 		Fresque fresqueDeCopie;
-		int choixFichier = 0;
-		int choix = 0;
-		boolean condition = true;
+		Random rd = new Random();
+		String[] transformation = {"Translation", "Homothétie", "Rotation", "Symetrie Axiale"
+							, "Symetrie Centrale"};
 		
-		do {
-			// Première partie on affiche les fresques déjà existante
-			System.out.println("Fresque présente dans le fichier : ");
-			if (getFichierPresent().length == 0) {
-				throw new NoFresqueException("Aucune fresque n'est présent dans le fichier.");
-			}else {
-				afficherContenue(getFichierPresent());
+		System.out.println("Application de transformation aléatoire sur les images de la fresque : ");
+		for(Dessin dessin: fresque) {
+			for(Image image: dessin) {
+				
+				
 			}
-			
-			//Deucième partie on choisie la fresque
-			String[] listFichier = getFichierPresent();
-			int nombreFichierPresent = listFichier.length;
-			int choixUtilisateur;
-			int choixUtilisateur2;
-			do {
-				
-				System.out.print("Veuillez choisir la fresque à éditer en tapant \nson indice de 1 à "
-						+ (nombreFichierPresent-1) + " --> ");
-				choixUtilisateur = sc.nextInt();
-				System.out.println();
-				if(!(choixUtilisateur > (nombreFichierPresent - 1) && choixUtilisateur < 0))
-						condition = false;
-			}while(condition);
-			fresqueUtilisateur = fm.getFresque(listFichier[choixUtilisateur]);
-			do {
-				//Troisième partie on affiche la fresque 
-				System.out.println("Voici la fresque : \n"+listFichier[choixUtilisateur] + "\nFresque\n" 
-									+ fresqueUtilisateur);
-				
-				//Quatrième partie on affiche le menu des actions et transformation
-				System.out.println("Veulliez selectionner une transformation ou un action en tapant \n"
-						+ "son indice de 1 à 12 : \n");
-				System.out.println(getMenuAction());
-				
-				//Cinquième partie on applique les choix de l'utilisateur
-				do {
-					System.out.print("--> ");
-					choixUtilisateur2 = sc.nextInt();
-					System.out.println();
-					if(!(choixUtilisateur2 > (12) && choixUtilisateur2 < 0))
-							condition = false;
-				}while(condition);
-				
-				switch (choixUtilisateur2){
-					case 1:
-						int dx, dy;
-						System.out.println("Veuillez choisir votre dx et dy :");
-						System.out.print("dx --> ");
-						dx = sc.nextInt();
-						System.out.println();
-						System.out.print("dy --> ");
-						dy = sc.nextInt();
-						fresqueUtilisateur.translation(dx, dy);
-						System.out.println(fresqueUtilisateur);
-						fm.save(listFichier[choixUtilisateur], fresqueUtilisateur);
-						break;
-					case 2:
-						int rapport;
-						System.out.println("Veuillez choisir votre rapport :");
-						System.out.print("rapport --> ");
-						rapport = sc.nextInt();
-						System.out.println();
-						fresqueUtilisateur.homothétie(rapport);
-						System.out.println(fresqueUtilisateur);
-						fm.save(listFichier[choixUtilisateur], fresqueUtilisateur);
-						break;
-					case 3:
-						System.out.println(fresqueUtilisateur);
-						break;
-					case 4:
-						System.out.println(fresqueUtilisateur);
-						break;
-					case 5:
-						System.out.println(fresqueUtilisateur);
-						break;
-					case 6:
-						fresqueUtilisateur.sortImageByAir();
-						System.out.println(fresqueUtilisateur);
-						fm.save(listFichier[choixUtilisateur], fresqueUtilisateur);
-						break;
-					case 7:
-						fresqueUtilisateur.sortFormeByPerimetre();
-						System.out.println(fresqueUtilisateur);
-						fm.save(listFichier[choixUtilisateur], fresqueUtilisateur);
-						break;
-					case 8:
-						String nom;
-						System.out.print("Nom de la nouvelle fresque : ");
-						nom = sc.nextLine();
-						System.out.println();
-						fresqueDeCopie = new Fresque(fresqueUtilisateur);
-						System.out.println(fresqueDeCopie);
-						fm.save(nom + ".txt", fresqueDeCopie);
-						break;
-					case 9:
-						System.out.println(fresqueUtilisateur);
-						System.out.println("Périmètre total de la fresque : " + fresqueUtilisateur.perimetre());
-						break;
-					case 10:
-						System.out.println("Air total de la fresque : " + fresqueUtilisateur.air());
-						break;
-					case 11:
-						int totalAir = 0;
-						int seuilAir;
-						
-						System.out.print("Veuillez choisir le seuil --> ");
-						seuilAir = sc.nextInt();
-						System.out.println();
-						for(Dessin dessin: fresqueUtilisateur) {
-							totalAir += dessin.airInferieurA(seuilAir);
-						}
-						System.out.println(fresqueUtilisateur);
-						System.out.println("Voici le nombre d'image ayant une air inferieur à " 
-													+ seuilAir + " : " + totalAir);
-						break;
-					case 12:
-						int totalPerimetre = 0;
-						int seuilPerimetre;
-						
-						System.out.print("Veuillez choisir le seuil --> ");
-						seuilPerimetre = sc.nextInt();
-						System.out.println();
-						for(Dessin dessin: fresqueUtilisateur) {
-							for(Image image: dessin) {
-								totalPerimetre += image.perimetreInferieurA(seuilPerimetre);	
-							}
-						}
-						System.out.println(fresqueUtilisateur);
-						System.out.println("Voici le nombre de forme ayant un périmètre inferieur à " 
-																+ seuilPerimetre + " : " + totalPerimetre);
-						break;
-				}
-				
-				System.out.print("Voulez-vous faire autre chose ? (0 pour non / 1 pour oui) --> ");
-				choix = sc.nextInt();
-				System.out.println();
-			}while(choix == 1);
-			System.out.print("Voulez-vous choisir un autre fichier ? (0 pour non / 1 pour oui) --> ");
-			choixFichier = sc.nextInt();
-			System.out.println();
-		}while(choixFichier == 1);
-		System.out.println("Aurevoir !!");		
-	}
-	
-	/**
-	 * 
-	 * @return menu			Renvoie le menu avec toute les actions que peut selectionner l'utilisateur.
-	 */
-	public static String getMenuAction() {
-		String[] transformations = {"Translation", "Homothétie", "Rotation", "Symétrie Centrale"
-					, "Symétrie Axiale"};
-		String[] actions = {"Trie des images selon l'air", "Trie des formes selon le périmètre"
-				, "Copie de la fresque"};
-		
-		String[] calculs = {"Périmètre total", "Air total", "Nombre d'image ayant une air inférieur"
-				+ " à un seuil", "Nombre de forme ayant un périmètre inférieur à un seuil"};
-		
-		String menu = "";
-		int indice = 1;
-		for(String transformation: transformations) {
-			menu += (indice++) + " - " + transformation + "\n";
+		}
+		System.out.println();
+		System.out.println("Trie des formes de la fresque de copie en fonction de leur perimetre : ");
+		fresqueDeCopie = new Fresque(fresque);
+		for(Dessin dessin: fresqueDeCopie) {
+			for (Image image: dessin) {
+				image.sort();
+			}
+		}
+		System.out.println(fresqueDeCopie);
+		System.out.println();
+		System.out.println("Trie des images de la fresque de copie en fonction de leur aire : ");
+		for(Dessin dessin: fresqueDeCopie) {
+			dessin.sort();
 		}
 		
-		for(String action: actions) {
-			menu += (indice++) + " - " + action + "\n";
-		}
-		
-		for(String calcul: calculs) {
-			menu += (indice++) + " - " + calcul + "\n";
-		}
-		
-		return menu;
-	}
-	
-
-	/**
-	 * 
-	 * @return Tableau de String comptenant la liste des fichier dans Fresque
-	 * @throws FileNotFoundException   Si le fichier n'est pas trouvée.
-	 */
-	public static String[] getFichierPresent() throws FileNotFoundException {
-		File file = new File("Fresque");
-		return file.list();
-	}
-	
-	public static String afficherContenue(String[] elements) {
-		String contenue = "";
+		System.out.println(fresqueDeCopie);
+		System.out.println();
+		int seuil = rd.nextInt(100);
+		System.out.println("Nombre de forme ayant un périmètre inférieur à " + seuil + " : ");
+		int nbFormePerimetreInferieurASeuil = 0;
 		int cpt = 1;
-		
-		for(String element: elements) {
-			contenue += (cpt++) + " - " + element + "\n";
+		for(Dessin dessin: fresque) {
+			for(Image image: dessin) {
+				nbFormePerimetreInferieurASeuil = image.perimetreInferieurA(seuil);
+				System.out.println("Image "+ (cpt++)+ " -> " + nbFormePerimetreInferieurASeuil);
+			}
 		}
-		return contenue;
+		System.out.println();
+		//
+		seuil = rd.nextInt(100);
+		System.out.println("Nombre d'image ayant une aire inférieure à " + seuil + " : ");
+		int nbImageAireInferieurASeuil = 0;
+		cpt = 1;
+		for(Dessin dessin: fresque) {
+				nbImageAireInferieurASeuil = dessin.airInferieurA(seuil);
+				System.out.println("Dessin "+ (cpt++)+ " -> " + nbImageAireInferieurASeuil);
+
+		}
+		System.out.println();
+		System.out.println("Périmètre de chaque image de la fresque : ");
+		cpt = 1;
+		for(Dessin dessin: fresque) {
+			for(Image image: dessin) {
+				System.out.println("Image " + (cpt++) + " -> "+ image.perimetre());
+			}
+		}
+		System.out.println();
+		System.out.println("Aire de chaque dessin de la fresque : ");
+		cpt = 1;
+		for(Dessin dessin: fresque) {
+				System.out.println("Aire " + (cpt++) + " -> "+ dessin.aire());
+		}
+		System.out.println();
+		System.out.println("Aire total de la fresque de copie : " + fresqueDeCopie.aire());
+		System.out.println();
+		System.out.println("Perimetre total de la fresque de copie : " + fresqueDeCopie.perimetre());
+		System.out.println();
+		System.out.println("Au revoir !!");		
+	}
+
+	public static Fresque genererUneFresque() {
+		String[] listeForme = {"Cercle", "Ellipse", "Ligne", "Polygone"};
+		Set<Forme> formes1 = new HashSet<Forme>(); 
+		Set<Forme> formes2 = new HashSet<Forme>(); 
+		Set<Forme> formes3 = new HashSet<Forme>(); 
+		Set<Forme> formes4 = new HashSet<Forme>(); 
+		Set<Image> images1 = new HashSet<Image>();
+		Set<Image> images2 = new HashSet<Image>();
+		Set<Dessin> dessins = new HashSet<Dessin>();
+		
+		Ligne[] sommetP1 = {new Ligne(new Point(1, 2), new Point(5, 4), 1)
+					, new Ligne(new Point(5, 4), new Point(8, 10), 1)
+					, new Ligne(new Point(8, 10), new Point(12, 4), 1)
+					, new Ligne(new Point(12, 4), new Point(1, 2), 1)};
+		
+		
+		Ligne[] sommetP2 = {new Ligne(new Point(12, 5), new Point(1, 4), 1)
+				, new Ligne(new Point(1, 4), new Point(18, 10), 1)
+				, new Ligne(new Point(18, 10), new Point(4, 4), 1)
+				, new Ligne(new Point(4, 4), new Point(12, 5), 1)};;
+		
+		
+		formes1.add(new Cercle(new Point(1, 2), 5));
+		formes1.add(new Polygone(new Point(1, 5), sommetP1));
+		images1.add(new Image(formes1));
+		formes2.add(new Ellipse(new Point(0, 2), 8, 6));
+		formes2.add(new Ligne(new Point(1, 6), new Point(8, 14), 5));
+		images1.add(new Image(formes2));
+		formes3.add(new Cercle(new Point(7, 5), 10));
+		formes3.add(new Polygone(new Point(5, 12), sommetP2));
+		images2.add(new Image(formes3));
+		formes4.add(new Ellipse(new Point(10, 8), 12, 5));
+		formes4.add( new Ligne(new Point(41, 6), new Point(58, 14), 1));
+		images2.add(new Image(formes4));
+		
+		dessins.add(new Dessin(images1));
+		dessins.add(new Dessin(images2));
+		return new Fresque(dessins);
 	}
 }

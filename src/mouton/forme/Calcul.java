@@ -17,5 +17,5 @@ public interface Calcul {
 	 * 
 	 * @return Air				L'air de la forme
 	 */
-	abstract public double air();
+	abstract public double aire();
 }

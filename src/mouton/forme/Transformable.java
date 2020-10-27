@@ -11,27 +11,27 @@ public interface Transformable {
 	 * 
 	 * @param rapport
 	 */
-	public void homothétie(final int rapport);
+	abstract public Forme homothétie(final int rapport);
 	
 	/**
 	 * 
 	 * @param dx			
 	 * @param dy
 	 */
-	public void translation(final int dx, final int dy);
+	abstract public Forme translation(final int dx, final int dy);
 	
 	/**
 	 * 
 	 */
-	abstract public void rotation();
+	abstract public Forme rotation();
 	
 	/**
 	 * 
 	 */
-	abstract public void symétrieCentrale();
+	abstract public Forme symétrieCentrale();
 	
 	/**
 	 * 
 	 */
-	abstract public void symétrieAxiale();
+	abstract public Forme symétrieAxiale();
 }

@@ -22,7 +22,7 @@ public abstract class Forme implements Comparable<Forme>, Transformable, Calcul{
 	 * @return Centre	Retourne le point qui sert de centre à la forme.
 	 */
 	public Point getCentre() {return this.centre;}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,7 +30,13 @@ public abstract class Forme implements Comparable<Forme>, Transformable, Calcul{
 		result = prime * result + ((centre == null) ? 0 : centre.hashCode());
 		return result;
 	}
-
+	
+	@Override
+	public int compareTo(Forme arg0) {
+		// TODO Auto-generated method stub
+		return (int) (this.perimetre() - arg0.perimetre());
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

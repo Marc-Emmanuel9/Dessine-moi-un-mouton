@@ -5,10 +5,10 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Point{
+public final class Point{
 
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 	
 	/**
 	 *
@@ -32,7 +32,6 @@ public class Point{
 	 */
 	public int getY() {return this.y;}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,5 +55,10 @@ public class Point{
 		if (y != other.y)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString(){
+		return "(" + x + "," + y + ")";
 	}
 }
