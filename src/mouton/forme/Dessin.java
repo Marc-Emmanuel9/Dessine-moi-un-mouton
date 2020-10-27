@@ -7,7 +7,7 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Dessin implements Iterable<Image>, Calcul {
+public class Dessin implements Iterable<Image>, Calcul, Transformable {
 	
 	/**
 	 * 
@@ -30,10 +30,24 @@ public class Dessin implements Iterable<Image>, Calcul {
 		this(dessin.images);
 	}
 
+	public Dessin() {
+		this.images = new HashSet<>();
+	}
 	@Override
 	public Iterator<Image> iterator() {
 		// TODO Auto-generated method stub
 		return this.images.iterator();
+	}
+	
+	public int dessinSize() {
+		return images.size();
+	}
+	/**
+	 * 
+	 * @param image
+	 */
+	public void addImage(final Image image) {
+		images.add(image);
 	}
 	
 	/**
@@ -82,6 +96,34 @@ public class Dessin implements Iterable<Image>, Calcul {
 	}
 	
 	
+	@Override
+	public void homothétie(final int rapport) {
+		for(Image image: this) image.homothétie(rapport);
+	}
+
+	@Override
+	public void translation(final int dx, final int dy) {
+		for(Image image: this) image.translation(dx, dy);
+	}
+
+
+	@Override
+	public void rotation() {
+		for(Image image: this) image.rotation();
+	}
+
+
+	@Override
+	public void symétrieCentrale() {
+		for(Image image: this) image.symétrieCentrale();
+	}
+
+
+	@Override
+	public void symétrieAxiale() {
+		for(Image image: this) image.symétrieAxiale();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

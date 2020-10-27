@@ -5,10 +5,10 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public final class Point{
+public class Point{
 
-	private final int x;
-	private final int y;
+	private int x;
+	private int y;
 	
 	/**
 	 *
@@ -31,6 +31,20 @@ public final class Point{
 	 * @return y	La coordonnée y du point
 	 */
 	public int getY() {return this.y;}
+
+	/**
+	 * @param x the x to set
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	/**
+	 * @param y the y to set
+	 */
+	public void setY(int y) {
+		this.y = y;
+	}
 
 	@Override
 	public int hashCode() {

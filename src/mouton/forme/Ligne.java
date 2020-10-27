@@ -5,7 +5,7 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public final class Ligne extends Forme implements Comparable<Forme>{
+public class Ligne extends Forme implements Comparable<Forme>{
 	
 
 	private final int epaisseur;
@@ -49,49 +49,6 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 					Math.pow(this.getCentre().getY() - this.point.getY(), 2));
 	}
 
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme rotation() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieCentrale() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieAxiale() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme homothétie(int rapport) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme translation(int dx, int dy) {
-		
-	}
 	
 	@Override
 	public int hashCode() {
@@ -126,6 +83,41 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 	public String toString() {
 		return "Ligne allant des coordonnées " + super.getCentre() + " à " + this.point +
 				" et d'epaisseur " + this.epaisseur;
+	}
+
+
+	@Override
+	public void homothétie(int rapport) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void translation(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void rotation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void symétrieCentrale() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void symétrieAxiale() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -46,51 +46,8 @@ public final class Cercle extends Forme implements Comparable<Forme>{
 	public String toString() {
 		return "Cercle de centre "+super.getCentre()+" et de rayon "+this.getRayon();
 	}
-	//Tansformation 
 	
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme rotation() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieCentrale() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieAxiale() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme homothétie(int rapport) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme translation(int dx, int dy) {
-		
-	}
 	
 
 	@Override
@@ -114,6 +71,36 @@ public final class Cercle extends Forme implements Comparable<Forme>{
 		if (rayon != other.rayon)
 			return false;
 		return true;
+	}
+
+	@Override
+	public void homothétie(int rapport) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void translation(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rotation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void symétrieCentrale() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void symétrieAxiale() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

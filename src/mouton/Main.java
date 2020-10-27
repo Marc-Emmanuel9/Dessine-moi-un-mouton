@@ -12,23 +12,39 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Fresque f =genererUneFresque();
+		Fresque f = genererUneFresque();
 		scenario(f);
 	}
 	
-	public static void scenario(final Fresque fresque) {
+	public static void scenario(Fresque fresque) {
 		Fresque fresqueDeCopie;
 		Random rd = new Random();
 		String[] transformation = {"Translation", "Homothétie", "Rotation", "Symetrie Axiale"
 							, "Symetrie Centrale"};
 		
-		System.out.println("Application de transformation aléatoire sur les images de la fresque : ");
+		
+		System.out.println("Application de transformation aléatoire sur les formes de la fresque : ");
 		for(Dessin dessin: fresque) {
-			for(Image image: dessin) {
-				
-				
+			switch(rd.nextInt(transformation.length)) {
+				case 0:
+					dessin.translation(rd.nextInt(90), rd.nextInt(90));
+					break;
+				case 1:
+					dessin.homothétie(rd.nextInt(90));
+					break;
+				case 2:
+					dessin.rotation();
+					break;
+				case 3:
+					dessin.symétrieAxiale();
+					break;
+				case 4:
+					dessin.symétrieCentrale();
+					break;
 			}
 		}
+		
+		System.out.println(fresque);
 		System.out.println();
 		System.out.println("Trie des formes de la fresque de copie en fonction de leur perimetre : ");
 		fresqueDeCopie = new Fresque(fresque);
@@ -90,7 +106,6 @@ public class Main {
 	}
 
 	public static Fresque genererUneFresque() {
-		String[] listeForme = {"Cercle", "Ellipse", "Ligne", "Polygone"};
 		Set<Forme> formes1 = new HashSet<Forme>(); 
 		Set<Forme> formes2 = new HashSet<Forme>(); 
 		Set<Forme> formes3 = new HashSet<Forme>(); 
@@ -114,18 +129,22 @@ public class Main {
 		formes1.add(new Cercle(new Point(1, 2), 5));
 		formes1.add(new Polygone(new Point(1, 5), sommetP1));
 		images1.add(new Image(formes1));
+		
 		formes2.add(new Ellipse(new Point(0, 2), 8, 6));
 		formes2.add(new Ligne(new Point(1, 6), new Point(8, 14), 5));
 		images1.add(new Image(formes2));
+		
 		formes3.add(new Cercle(new Point(7, 5), 10));
 		formes3.add(new Polygone(new Point(5, 12), sommetP2));
 		images2.add(new Image(formes3));
+		
 		formes4.add(new Ellipse(new Point(10, 8), 12, 5));
 		formes4.add( new Ligne(new Point(41, 6), new Point(58, 14), 1));
 		images2.add(new Image(formes4));
 		
 		dessins.add(new Dessin(images1));
 		dessins.add(new Dessin(images2));
+		
 		return new Fresque(dessins);
 	}
 }

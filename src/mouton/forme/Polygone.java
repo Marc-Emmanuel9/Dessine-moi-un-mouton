@@ -36,76 +36,54 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 	 */
 	@Override
 	public double aire() {
-		return 0;
-	}
+		double sum = 0;
 
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme rotation() {
-		Ligne[] sommetBis = new Ligne[sommet.length];
-		for(int i = 0; i < sommet.length; i++) {
-			sommetBis[i] = (Ligne) sommet[i].rotation();
-		}
-		return new Polygone(new Point(this.getCentre().getX(), this.getCentre().getY())
-							, sommetBis);
-	}
+		for (int i = 0; i < this.sommet.length - 1; i++) {
+			if (i == 0)
+				sum += this.sommet[i].getCentre().getX()
+						* (this.sommet[i+1].getCentre().getY() - 
+									this.sommet[this.sommet.length- 1].getCentre().getY());
+			else
+				sum += this.sommet[i].getCentre().getX()
+				* (this.sommet[i+1].getCentre().getY() - 
+							this.sommet[i- 1].getCentre().getY());
 
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieCentrale() {
-		Ligne[] sommetBis = new Ligne[sommet.length];
-		for(int i = 0; i < sommet.length; i++) {
-			sommetBis[i] = (Ligne) sommet[i].symétrieCentrale();
 		}
-		return new Polygone(new Point(this.getCentre().getX() , this.getCentre().getY())
-							, sommetBis);
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme symétrieAxiale() {
-		Ligne[] sommetBis = new Ligne[sommet.length];
-		for(int i = 0; i < sommet.length; i++) {
-			sommetBis[i] = (Ligne) sommet[i].symétrieAxiale();
-		}
-		return new Polygone(new Point(this.getCentre().getX() , this.getCentre().getY())
-							, sommetBis);
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme homothétie(final int rapport) {
-		Ligne[] sommetBis = new Ligne[sommet.length];
-		for(int i = 0; i < sommet.length; i++) {
-			sommetBis[i] = (Ligne) sommet[i].homothétie(rapport);
-		}
-		return new Polygone(new Point(this.getCentre().getX()*rapport, this.getCentre().getY()*rapport)
-							, sommetBis);
-	}
-
-	/**
-	 * @see Transformable
-	 */
-	@Override
-	public Forme translation(final int dx, final int dy) {
-		Ligne[] sommetBis = new Ligne[sommet.length];
-		for(int i = 0; i < sommet.length; i++) {
-			sommetBis[i] = (Ligne) sommet[i].translation(dx, dy);
-		}
-		return new Polygone(new Point(this.getCentre().getX() + dx, this.getCentre().getY() + dy)
-							, sommetBis);
+		return 0.5 * Math.abs(sum);
 	}
 	
 	@Override
 	public String toString() {
 		return "Polygone de centre " + super.getCentre() + " composé de "+this.sommet.length+" arrête.";
+	}
+
+	@Override
+	public void homothétie(int rapport) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void translation(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rotation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void symétrieCentrale() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void symétrieAxiale() {
+		// TODO Auto-generated method stub
+		
 	}
 }

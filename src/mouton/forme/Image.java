@@ -7,7 +7,7 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Image implements Iterable<Forme>, Comparable<Image>, Calcul {
+public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transformable {
 
 
 	Set<Forme> formes;
@@ -28,8 +28,18 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul {
 	public Image(final Image image) {
 		this(image.formes);
 	}
-
-
+	
+	public Image() {
+		this.formes = new HashSet<>();
+	}
+	/**
+	 * 
+	 * @param forme
+	 */
+	public void addForme(final Forme forme) {
+		formes.add(forme);
+	}
+	
 	@Override
 	public Iterator<Forme> iterator() {
 		// TODO Auto-generated method stub
@@ -90,6 +100,33 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul {
 	public int compareTo(Image image) {
 		return (int) (this.aire() - image.aire());
 	}
+	
+	
+	@Override
+	public void homothétie(final int rapport) {
+		for(Forme forme: this) forme.homothétie(rapport);
+	}
+
+	@Override
+	public void translation(final int dx, final int dy) {
+		for(Forme forme: this) forme.translation(dx, dy);
+	}
+
+	@Override
+	public void rotation() {
+		for(Forme forme: this) forme.rotation();
+	}
+
+
+	@Override
+	public void symétrieCentrale() {
+		for(Forme forme: this) forme.symétrieCentrale();
+	}
+
+	@Override
+	public void symétrieAxiale() {
+		for(Forme forme: this) forme.symétrieAxiale();
+	}
 
 	@Override
 	public int hashCode() {
@@ -115,4 +152,5 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul {
 			return false;
 		return true;
 	}
+	
 }

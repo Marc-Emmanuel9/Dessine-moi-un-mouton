@@ -11,6 +11,10 @@ public class Fresque implements Iterable<Dessin>, Calcul {
 
 	private Set<Dessin> dessins;
 	
+	
+	public Fresque() {
+		this.dessins = new HashSet<>();
+	}
 	/**
 	 * 
 	 * @param dessins
@@ -42,6 +46,15 @@ public class Fresque implements Iterable<Dessin>, Calcul {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param dessin
+	 */
+	public void addDessin(final Dessin dessin) {
+		dessins.add(dessin);
+	}
+	
 	@Override
 	public Iterator<Dessin> iterator() {
 		return this.dessins.iterator();
