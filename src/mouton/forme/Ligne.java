@@ -9,7 +9,7 @@ public class Ligne extends Forme implements Comparable<Forme>{
 	
 
 	private final int epaisseur;
-	private final Point point;
+	private Point point;
 	
 	/**
 	 * 
