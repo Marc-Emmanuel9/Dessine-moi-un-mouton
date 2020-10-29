@@ -113,14 +113,14 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 	}
 
 	@Override
-	public void rotation() {
-		for(Forme forme: this) forme.rotation();
+	public void rotation(final int angleDeRotation, final Point origine) {
+		for(Forme forme: this) forme.rotation(angleDeRotation, origine);
 	}
 
 
 	@Override
-	public void symétrieCentrale() {
-		for(Forme forme: this) forme.symétrieCentrale();
+	public void symétrieCentrale(final Point centre) {
+		for(Forme forme: this) forme.symétrieCentrale(centre);
 	}
 
 	@Override

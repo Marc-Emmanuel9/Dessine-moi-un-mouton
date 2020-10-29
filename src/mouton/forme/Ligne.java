@@ -5,7 +5,7 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Ligne extends Forme implements Comparable<Forme>{
+public final class Ligne extends Forme implements Comparable<Forme>{
 	
 
 	private final int epaisseur;
@@ -31,8 +31,7 @@ public class Ligne extends Forme implements Comparable<Forme>{
 	 */
 	@Override
 	public double perimetre() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.longueur() + 2 * this.epaisseur;
 	}
 
 	/**
@@ -40,15 +39,17 @@ public class Ligne extends Forme implements Comparable<Forme>{
 	 */
 	@Override
 	public double aire() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.longueur()*this.epaisseur;
 	}
 	
 	public int longueur() {
 		return (int) Math.sqrt(Math.pow(this.getCentre().getX() - this.point.getX(), 2) + 
 					Math.pow(this.getCentre().getY() - this.point.getY(), 2));
 	}
-
+	
+	public Point getEnd() {
+		return this.point;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -88,29 +89,48 @@ public class Ligne extends Forme implements Comparable<Forme>{
 
 	@Override
 	public void homothétie(int rapport) {
-		// TODO Auto-generated method stub
+		this.getCentre().setX(this.getCentre().getX() * rapport);
+		this.getCentre().setY(this.getCentre().getY() * rapport);
 		
+		this.point.setX(this.point.getX() * rapport);
+		this.point.setY(this.point.getY() * rapport);
 	}
 
 
 	@Override
 	public void translation(int dx, int dy) {
-		// TODO Auto-generated method stub
+		this.getCentre().setX(this.getCentre().getX() + dx);
+		this.getCentre().setY(this.getCentre().getY() + dy);
 		
+		this.point.setX(this.point.getX() + dx);
+		this.point.setY(this.point.getY() + dy);
+	}
+
+	@Override
+	public void rotation(final int angleDeRotation, final Point origine) {
+		int r = (int) Math.sqrt(Math.pow(this.getCentre().getX() - origine.getX(), 2) + 
+				Math.pow(this.getCentre().getY() - origine.getY(), 2));
+		
+		this.getCentre().setX( (int) (this.getCentre().getX()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getY() * Math.sin(angleDeRotation)));
+		this.getCentre().setY( (int) (this.getCentre().getY()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getX() * Math.sin(angleDeRotation)));
+		
+		this.point.setX( (int) (this.point.getX()  * Math.cos(angleDeRotation) 
+				- this.point.getY() * Math.sin(angleDeRotation)));
+		this.point.setY( (int) (this.point.getY()  * Math.cos(angleDeRotation) 
+				- this.point.getX() * Math.sin(angleDeRotation)));
 	}
 
 
-	@Override
-	public void rotation() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
-	public void symétrieCentrale() {
-		// TODO Auto-generated method stub
+	public void symétrieCentrale(final Point centre) {
+		this.getCentre().setX(2 * centre.getX() - this.getCentre().getX());
+		this.getCentre().setY(2 * centre.getY() - this.getCentre().getY());
 		
+		this.point.setX(2 * centre.getX() - this.getCentre().getX());
+		this.point.setY(2 * centre.getY() - this.getCentre().getY());
 	}
 
 

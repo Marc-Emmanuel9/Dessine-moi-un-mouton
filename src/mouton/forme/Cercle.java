@@ -21,8 +21,7 @@ public final class Cercle extends Forme implements Comparable<Forme>{
 	 */
 	@Override
 	public double perimetre() {
-		// TODO Auto-generated method stub
-		return 0.0;
+		return 2 * Math.PI * this.rayon;
 	}
 	
 	/**
@@ -30,8 +29,7 @@ public final class Cercle extends Forme implements Comparable<Forme>{
 	 */
 	@Override
 	public double aire() {
-		// TODO Auto-generated method stub
-		return 0;
+		return Math.PI * Math.pow(this.rayon, 2);
 	}
 	
 	/**
@@ -75,26 +73,31 @@ public final class Cercle extends Forme implements Comparable<Forme>{
 
 	@Override
 	public void homothétie(int rapport) {
-		// TODO Auto-generated method stub
-		
+		this.getCentre().setX(this.getCentre().getX() * rapport);
+		this.getCentre().setY(this.getCentre().getY() * rapport);
 	}
 
 	@Override
 	public void translation(int dx, int dy) {
-		// TODO Auto-generated method stub
-		
+		this.getCentre().setX(this.getCentre().getX() + dx);
+		this.getCentre().setY(this.getCentre().getY() + dy);
 	}
 
 	@Override
-	public void rotation() {
-		// TODO Auto-generated method stub
+	public void rotation(final int angleDeRotation, final Point origine) {
+		int r = (int) Math.sqrt(Math.pow(this.getCentre().getX() - origine.getX(), 2) + 
+				Math.pow(this.getCentre().getY() - origine.getY(), 2));
 		
+		this.getCentre().setX( (int) (this.getCentre().getX()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getY() * Math.sin(angleDeRotation)));
+		this.getCentre().setY( (int) (this.getCentre().getY()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getX() * Math.sin(angleDeRotation)));
 	}
 
 	@Override
-	public void symétrieCentrale() {
-		// TODO Auto-generated method stub
-		
+	public void symétrieCentrale(final Point centre) {
+		this.getCentre().setX(2 * centre.getX() - this.getCentre().getX());
+		this.getCentre().setY(2 * centre.getY() - this.getCentre().getY());
 	}
 
 	@Override

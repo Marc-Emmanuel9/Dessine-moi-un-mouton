@@ -5,6 +5,7 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
+
 public interface Transformable {
 	
 	/**
@@ -22,13 +23,16 @@ public interface Transformable {
 	
 	/**
 	 * 
+	 * @param angleDeRotation
+	 * @param origine
 	 */
-	abstract public void rotation();
+	abstract public void rotation(final int angleDeRotation, final Point origine);
 	
 	/**
-	 * 
+	 * Symétrie par rapport au point de coordonnées x, y
+	 * @param centre 
 	 */
-	abstract public void symétrieCentrale();
+	abstract public void symétrieCentrale(final Point centre);
 	
 	/**
 	 * 

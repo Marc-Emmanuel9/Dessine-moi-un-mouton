@@ -23,28 +23,30 @@ public class Main {
 							, "Symetrie Centrale"};
 		
 		
+		// Application des transformations.
 		System.out.println("Application de transformation aléatoire sur les formes de la fresque : ");
 		for(Dessin dessin: fresque) {
 			switch(rd.nextInt(transformation.length)) {
 				case 0:
-					dessin.translation(rd.nextInt(90), rd.nextInt(90));
+					dessin.translation(rd.nextInt(90), rd.nextInt(90)); 
 					break;
 				case 1:
 					dessin.homothétie(rd.nextInt(90));
 					break;
 				case 2:
-					dessin.rotation();
+					dessin.rotation(rd.nextInt(361), new Point(rd.nextInt(50), rd.nextInt(50)));
 					break;
 				case 3:
 					dessin.symétrieAxiale();
 					break;
 				case 4:
-					dessin.symétrieCentrale();
+					dessin.symétrieCentrale(new Point(0, 0));
 					break;
 			}
 		}
-		
 		System.out.println(fresque);
+		
+		// Trie des formes de la fresque copie en fonction de leur périmètre. 
 		System.out.println();
 		System.out.println("Trie des formes de la fresque de copie en fonction de leur perimetre : ");
 		fresqueDeCopie = new Fresque(fresque);
@@ -54,13 +56,16 @@ public class Main {
 			}
 		}
 		System.out.println(fresqueDeCopie);
+		
+		// Trie des formes de la fresque copie en fonction de leur aire.
 		System.out.println();
 		System.out.println("Trie des images de la fresque de copie en fonction de leur aire : ");
 		for(Dessin dessin: fresqueDeCopie) {
 			dessin.sort();
 		}
-		
 		System.out.println(fresqueDeCopie);
+		
+		// Nombre de forme ayant un périmètre inférieur à un seuil.
 		System.out.println();
 		int seuil = rd.nextInt(100);
 		System.out.println("Nombre de forme ayant un périmètre inférieur à " + seuil + " : ");
@@ -72,9 +77,11 @@ public class Main {
 				System.out.println("Image "+ (cpt++)+ " -> " + nbFormePerimetreInferieurASeuil);
 			}
 		}
+		
+		
+		// Nombre d'image ayant une aire inférieur à un seuil.
 		System.out.println();
-		//
-		seuil = rd.nextInt(100);
+		seuil = rd.nextInt(1000);
 		System.out.println("Nombre d'image ayant une aire inférieure à " + seuil + " : ");
 		int nbImageAireInferieurASeuil = 0;
 		cpt = 1;
@@ -83,6 +90,9 @@ public class Main {
 				System.out.println("Dessin "+ (cpt++)+ " -> " + nbImageAireInferieurASeuil);
 
 		}
+		
+		
+		// Périmètrec de chaque image de la fresque.
 		System.out.println();
 		System.out.println("Périmètre de chaque image de la fresque : ");
 		cpt = 1;
@@ -91,16 +101,24 @@ public class Main {
 				System.out.println("Image " + (cpt++) + " -> "+ image.perimetre());
 			}
 		}
+		
+		// Aire de chaque dessin de la fresque.
 		System.out.println();
 		System.out.println("Aire de chaque dessin de la fresque : ");
 		cpt = 1;
 		for(Dessin dessin: fresque) {
 				System.out.println("Aire " + (cpt++) + " -> "+ dessin.aire());
 		}
+		
+		// Calcul aire total de la fresque de copie.
 		System.out.println();
 		System.out.println("Aire total de la fresque de copie : " + fresqueDeCopie.aire());
+		
+		//Calcul périmètre total de la fresque de copie.
 		System.out.println();
 		System.out.println("Perimetre total de la fresque de copie : " + fresqueDeCopie.perimetre());
+		
+		//Fin du programme.
 		System.out.println();
 		System.out.println("Au revoir !!");		
 	}

@@ -108,14 +108,14 @@ public class Dessin implements Iterable<Image>, Calcul, Transformable {
 
 
 	@Override
-	public void rotation() {
-		for(Image image: this) image.rotation();
+	public void rotation(final int angleDeRotation, final Point origine) {
+		for(Image image: this) image.rotation(angleDeRotation, origine);
 	}
 
 
 	@Override
-	public void symétrieCentrale() {
-		for(Image image: this) image.symétrieCentrale();
+	public void symétrieCentrale(final Point centre) {
+		for(Image image: this) image.symétrieCentrale(centre);
 	}
 
 
