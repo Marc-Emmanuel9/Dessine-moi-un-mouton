@@ -7,16 +7,14 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Dessin implements Iterable<Image>, Calcul, Transformable {
+public class Dessin implements Iterable<Image>, Calculable, Transformable {
 	
-	/**
-	 * 
-	 */
+	
 	private Set<Image> images;
 	
 	/**
 	 * 
-	 * @param images
+	 * @param images	Liste des images contenue dans le dessin
 	 */
 	public Dessin(final Set<Image> images) {
 		this.images = images;
@@ -24,30 +22,10 @@ public class Dessin implements Iterable<Image>, Calcul, Transformable {
 	
 	/**
 	 * 
-	 * @param dessin
+	 * @param dessin		Constructeur de copie
 	 */
 	public Dessin(final Dessin dessin) {
 		this(dessin.images);
-	}
-
-	public Dessin() {
-		this.images = new HashSet<>();
-	}
-	@Override
-	public Iterator<Image> iterator() {
-		// TODO Auto-generated method stub
-		return this.images.iterator();
-	}
-	
-	public int dessinSize() {
-		return images.size();
-	}
-	/**
-	 * 
-	 * @param image
-	 */
-	public void addImage(final Image image) {
-		images.add(image);
 	}
 	
 	/**
@@ -70,7 +48,8 @@ public class Dessin implements Iterable<Image>, Calcul, Transformable {
 	}
 	
 	/**
-	 * @see Calcul		Interface listant toute ces fonction.
+	 * @see Calculable
+	 * @return totalPerimetre	la somme du périmetre des formes qui compose le dessin
 	 */
 	@Override
 	public double perimetre() {
@@ -83,7 +62,8 @@ public class Dessin implements Iterable<Image>, Calcul, Transformable {
 	}
 	
 	/**
-	 * @see Calcul		Interface listant toute ces fonction.
+	 * @see Calculable
+	 * @return totalAire	la somme de l'aires des formes qui compose le dessin
 	 */
 	@Override
 	public double aire() {
@@ -95,35 +75,52 @@ public class Dessin implements Iterable<Image>, Calcul, Transformable {
 		return totalAire;
 	}
 	
-	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void homothétie(final int rapport) {
 		for(Image image: this) image.homothétie(rapport);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void translation(final int dx, final int dy) {
 		for(Image image: this) image.translation(dx, dy);
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
-	public void rotation(final int angleDeRotation, final Point origine) {
-		for(Image image: this) image.rotation(angleDeRotation, origine);
+	public void rotation(final int angleDeRotation) {
+		for(Image image: this) image.rotation(angleDeRotation);
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieCentrale(final Point centre) {
 		for(Image image: this) image.symétrieCentrale(centre);
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieAxiale() {
 		for(Image image: this) image.symétrieAxiale();
 	}
 
+	@Override
+	public Iterator<Image> iterator() {
+		// TODO Auto-generated method stub
+		return this.images.iterator();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

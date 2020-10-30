@@ -5,7 +5,7 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public interface Calcul {
+public interface Calculable {
 	
 	/**
 	 * 

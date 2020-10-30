@@ -7,52 +7,49 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Fresque implements Iterable<Dessin>, Calcul {
+public class Fresque implements Iterable<Dessin>, Calculable {
 
 	private Set<Dessin> dessins;
 	
 	
-	public Fresque() {
-		this.dessins = new HashSet<>();
-	}
 	/**
 	 * 
-	 * @param dessins
+	 * @param dessins  liste de dessins composant la fresque.
 	 */
-
-	
 	public Fresque(final Set<Dessin> dessins) {
 		this.dessins = dessins;
 	}
 	
 	/**
 	 * 
-	 * @param fresque
+	 * @param fresque	constructeur de copie
 	 */
 	public Fresque(final Fresque fresque) {
 		this(fresque.dessins);
 	}
 	
-	public void sortImageByAir(){
-		for(Dessin dessin: this) {
-			dessin.sort();
-		}
-	}
-	
-	public void sortFormeByPerimetre() {
-		for(Dessin dessin: this) {
-			for(Image image: dessin) {
-				image.sort();
-			}
-		}
+	/**
+	 * @see Calculable
+	 */
+	@Override
+	public double perimetre() {
+		double totalPerimetre = 0;
+		
+		for(Dessin dessin: this) totalPerimetre += dessin.perimetre();
+		
+		return totalPerimetre;
 	}
 	
 	/**
-	 * 
-	 * @param dessin
+	 * @see Calculable
 	 */
-	public void addDessin(final Dessin dessin) {
-		dessins.add(dessin);
+	@Override
+	public double aire() {
+		double totalAir = 0;
+		
+		for(Dessin dessin: this) totalAir += dessin.aire();
+		
+		return totalAir;
 	}
 	
 	@Override
@@ -100,24 +97,6 @@ public class Fresque implements Iterable<Dessin>, Calcul {
 		} else if (!dessins.equals(other.dessins))
 			return false;
 		return true;
-	}
-
-	@Override
-	public double perimetre() {
-		double totalPerimetre = 0;
-		
-		for(Dessin dessin: this) totalPerimetre += dessin.perimetre();
-		
-		return totalPerimetre;
-	}
-
-	@Override
-	public double aire() {
-		double totalAir = 0;
-		
-		for(Dessin dessin: this) totalAir += dessin.aire();
-		
-		return totalAir;
 	}
 
 }

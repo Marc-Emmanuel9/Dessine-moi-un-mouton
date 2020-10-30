@@ -13,11 +13,9 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 	
 	/**
 	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
-	 * @param epaisseur
+	 * @param p1	point du début de la ligne.
+	 * @param p2	point de fin de la ligne.
+	 * @param epaisseur	epaisseur de la ligne.
 	 */
 	public Ligne(final Point p1, final Point p2, final int epaisseur) {
 		super(p1); 
@@ -27,7 +25,7 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 
 
 	/**
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double perimetre() {
@@ -35,22 +33,91 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 	}
 
 	/**
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double aire() {
 		return this.longueur()*this.epaisseur;
 	}
 	
+	/**
+	 * 
+	 * @return longueur		la longueur de la ligne
+	 */
 	public int longueur() {
 		return (int) Math.sqrt(Math.pow(this.getCentre().getX() - this.point.getX(), 2) + 
 					Math.pow(this.getCentre().getY() - this.point.getY(), 2));
 	}
 	
+	/**
+	 * 
+	 * @return Point	retourne l'extrémité de la ligne
+	 */
 	public Point getEnd() {
 		return this.point;
 	}
 	
+	/**
+	 * @see Transformable
+	 */
+	@Override
+	public void homothétie(int rapport) {
+		this.getCentre().setX(this.getCentre().getX() * rapport);
+		this.getCentre().setY(this.getCentre().getY() * rapport);
+		
+		this.point.setX(this.point.getX() * rapport);
+		this.point.setY(this.point.getY() * rapport);
+	}
+
+	/**
+	 * @see Transformable
+	 */
+	@Override
+	public void translation(int dx, int dy) {
+		this.getCentre().setX(this.getCentre().getX() + dx);
+		this.getCentre().setY(this.getCentre().getY() + dy);
+		
+		this.point.setX(this.point.getX() + dx);
+		this.point.setY(this.point.getY() + dy);
+	}
+
+	/**
+	 * @see Transformable
+	 */
+	@Override
+	public void rotation(final int angleDeRotation) {	
+		this.getCentre().setX( (int) (this.getCentre().getX()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getY() * Math.sin(angleDeRotation)));
+		this.getCentre().setY( (int) (this.getCentre().getY()  * Math.cos(angleDeRotation) 
+				- this.getCentre().getX() * Math.sin(angleDeRotation)));
+		
+		this.point.setX( (int) (this.point.getX()  * Math.cos(angleDeRotation) 
+				- this.point.getY() * Math.sin(angleDeRotation)));
+		this.point.setY( (int) (this.point.getY()  * Math.cos(angleDeRotation) 
+				- this.point.getX() * Math.sin(angleDeRotation)));
+	}
+
+	/**
+	 * @see Transformable
+	 */
+	@Override
+	public void symétrieCentrale(final Point centre) {
+		this.getCentre().setX(2 * centre.getX() - this.getCentre().getX());
+		this.getCentre().setY(2 * centre.getY() - this.getCentre().getY());
+		
+		this.point.setX(2 * centre.getX() - this.getCentre().getX());
+		this.point.setY(2 * centre.getY() - this.getCentre().getY());
+	}
+
+	/**
+	 * @see Transformable
+	 */
+	@Override
+	public void symétrieAxiale() {
+		
+	}
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,58 +153,4 @@ public final class Ligne extends Forme implements Comparable<Forme>{
 				" et d'epaisseur " + this.epaisseur;
 	}
 
-
-	@Override
-	public void homothétie(int rapport) {
-		this.getCentre().setX(this.getCentre().getX() * rapport);
-		this.getCentre().setY(this.getCentre().getY() * rapport);
-		
-		this.point.setX(this.point.getX() * rapport);
-		this.point.setY(this.point.getY() * rapport);
-	}
-
-
-	@Override
-	public void translation(int dx, int dy) {
-		this.getCentre().setX(this.getCentre().getX() + dx);
-		this.getCentre().setY(this.getCentre().getY() + dy);
-		
-		this.point.setX(this.point.getX() + dx);
-		this.point.setY(this.point.getY() + dy);
-	}
-
-	@Override
-	public void rotation(final int angleDeRotation, final Point origine) {
-		int r = (int) Math.sqrt(Math.pow(this.getCentre().getX() - origine.getX(), 2) + 
-				Math.pow(this.getCentre().getY() - origine.getY(), 2));
-		
-		this.getCentre().setX( (int) (this.getCentre().getX()  * Math.cos(angleDeRotation) 
-				- this.getCentre().getY() * Math.sin(angleDeRotation)));
-		this.getCentre().setY( (int) (this.getCentre().getY()  * Math.cos(angleDeRotation) 
-				- this.getCentre().getX() * Math.sin(angleDeRotation)));
-		
-		this.point.setX( (int) (this.point.getX()  * Math.cos(angleDeRotation) 
-				- this.point.getY() * Math.sin(angleDeRotation)));
-		this.point.setY( (int) (this.point.getY()  * Math.cos(angleDeRotation) 
-				- this.point.getX() * Math.sin(angleDeRotation)));
-	}
-
-
-
-	@Override
-	public void symétrieCentrale(final Point centre) {
-		this.getCentre().setX(2 * centre.getX() - this.getCentre().getX());
-		this.getCentre().setY(2 * centre.getY() - this.getCentre().getY());
-		
-		this.point.setX(2 * centre.getX() - this.getCentre().getX());
-		this.point.setY(2 * centre.getY() - this.getCentre().getY());
-	}
-
-
-	@Override
-	public void symétrieAxiale() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

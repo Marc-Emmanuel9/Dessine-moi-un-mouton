@@ -10,27 +10,26 @@ public interface Transformable {
 	
 	/**
 	 * 
-	 * @param rapport
+	 * @param rapport		rapport avec lequel on va multipler les coordonnées d'un point
 	 */
 	abstract public void homothétie(final int rapport);
 	
 	/**
 	 * 
-	 * @param dx			
-	 * @param dy
+	 * @param dx	dx a rajouter au coordonnées x du point à translater		
+	 * @param dy	dy a rajouter au coordonnées y du point à translater
 	 */
 	abstract public void translation(final int dx, final int dy);
 	
 	/**
 	 * 
-	 * @param angleDeRotation
-	 * @param origine
+	 * @param angleDeRotation angle de rotation
 	 */
-	abstract public void rotation(final int angleDeRotation, final Point origine);
+	abstract public void rotation(final int angleDeRotation);
 	
 	/**
-	 * Symétrie par rapport au point de coordonnées x, y
-	 * @param centre 
+	 *
+	 * @param centre  Symétrie par rapport au point de coordonnées x, y
 	 */
 	abstract public void symétrieCentrale(final Point centre);
 	

@@ -7,14 +7,14 @@ import java.util.*;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transformable {
+public class Image implements Iterable<Forme>, Comparable<Image>, Calculable, Transformable {
 
 
 	Set<Forme> formes;
 	
 	/**
 	 * 
-	 * @param formes
+	 * @param formes liste de forme composant l'image
 	 * 
 	 */
 	public Image(final Set<Forme> formes) {
@@ -23,33 +23,16 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 	
 	/**
 	 * 
-	 * @param image
+	 * @param image		Constructeur de copie
 	 */
 	public Image(final Image image) {
 		this(image.formes);
 	}
 	
-	public Image() {
-		this.formes = new HashSet<>();
-	}
-	/**
-	 * 
-	 * @param forme
-	 */
-	public void addForme(final Forme forme) {
-		formes.add(forme);
-	}
-	
-	@Override
-	public Iterator<Forme> iterator() {
-		// TODO Auto-generated method stub
-		return this.formes.iterator();
-	}
-	
 	/**
 	 * 
 	 * @return totalPerimetre		la somme du perimetre des formes qui compose l'image
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double perimetre() {
@@ -64,7 +47,7 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 	/**
 	 * 
 	 * @return totalAire		la somme de l'aires des formes qui compose l'image
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double aire() {
@@ -89,45 +72,47 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 		return cpt;
 	}
 	
-	
-	public void sort() {
-		List<Forme> formesBis = new ArrayList<>(formes);
-		Collections.sort(formesBis);
-		this.formes = new HashSet<>(formesBis);
-	}
-	
-	@Override
-	public int compareTo(Image image) {
-		return (int) (this.aire() - image.aire());
-	}
-	
-	
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void homothétie(final int rapport) {
 		for(Forme forme: this) forme.homothétie(rapport);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void translation(final int dx, final int dy) {
 		for(Forme forme: this) forme.translation(dx, dy);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
-	public void rotation(final int angleDeRotation, final Point origine) {
-		for(Forme forme: this) forme.rotation(angleDeRotation, origine);
+	public void rotation(final int angleDeRotation) {
+		for(Forme forme: this) forme.rotation(angleDeRotation);
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieCentrale(final Point centre) {
 		for(Forme forme: this) forme.symétrieCentrale(centre);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieAxiale() {
 		for(Forme forme: this) forme.symétrieAxiale();
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,6 +121,7 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 		return result;
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -153,4 +139,20 @@ public class Image implements Iterable<Forme>, Comparable<Image>, Calcul, Transf
 		return true;
 	}
 	
+	public void sort() {
+		List<Forme> formesBis = new ArrayList<>(formes);
+		Collections.sort(formesBis);
+		this.formes = new HashSet<>(formesBis);
+	}
+	
+	@Override
+	public int compareTo(Image image) {
+		return (int) (this.aire() - image.aire());
+	}
+	
+	@Override
+	public Iterator<Forme> iterator() {
+		// TODO Auto-generated method stub
+		return this.formes.iterator();
+	}
 }

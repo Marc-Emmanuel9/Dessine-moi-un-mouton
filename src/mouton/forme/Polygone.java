@@ -1,5 +1,7 @@
 package mouton.forme;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
@@ -11,8 +13,8 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param centre	point représentant le centre du polygone
+	 * @param sommet	tableau de ligne qui compose le polygone
 	 */
 	public Polygone(final Point centre, final Ligne[] sommet) {
 		super(centre);
@@ -20,7 +22,7 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 	}
 
 	/**
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double perimetre() {
@@ -32,7 +34,7 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 	}
 
 	/**
-	 * @see Calcul
+	 * @see Calculable
 	 */
 	@Override
 	public double aire() {
@@ -51,12 +53,10 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 		}
 		return 0.5 * Math.abs(sum);
 	}
-	
-	@Override
-	public String toString() {
-		return "Polygone de centre " + super.getCentre() + " composé de "+this.sommet.length+" arrête.";
-	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void homothétie(int rapport) {
 		for(Ligne ligne: sommet) {
@@ -67,6 +67,9 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 		this.getCentre().setY(this.getCentre().getY() * rapport);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void translation(int dx, int dy) {
 		for(Ligne ligne: sommet) {
@@ -77,13 +80,13 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 		this.getCentre().setY(this.getCentre().getY() + dy);
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
-	public void rotation(final int angleDeRotation, final Point origine) {
-		int r = (int) Math.sqrt(Math.pow(this.getCentre().getX() - origine.getX(), 2) + 
-				Math.pow(this.getCentre().getY() - origine.getY(), 2));
-		
+	public void rotation(final int angleDeRotation) {
 		for(Ligne ligne: sommet) {
-			ligne.rotation(angleDeRotation, origine);
+			ligne.rotation(angleDeRotation);
 		}
 		
 		this.getCentre().setX( (int) (this.getCentre().getX()  * Math.cos(angleDeRotation) 
@@ -92,7 +95,9 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 				- this.getCentre().getX() * Math.sin(angleDeRotation)));
 	}
 
-
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieCentrale(final Point centre) {
 		for(Ligne ligne: sommet) {
@@ -103,9 +108,40 @@ public final class Polygone extends Forme implements Comparable<Forme>{
 		this.getCentre().setY(2 * centre.getY() - this.getCentre().getY());
 	}
 
+	/**
+	 * @see Transformable
+	 */
 	@Override
 	public void symétrieAxiale() {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "Polygone de centre " + super.getCentre() + " composé de "+this.sommet.length+" arrête.";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Arrays.hashCode(sommet);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Polygone other = (Polygone) obj;
+		if (!Arrays.equals(sommet, other.sommet))
+			return false;
+		return true;
+	}
+	
 }
