@@ -6,7 +6,7 @@ package mouton.forme;
  * @version 1.0
  */
 
-public final class Cercle extends Forme implements Comparable<Forme>{
+public final class Cercle extends Forme{
 	
 
 	private  final int rayon;

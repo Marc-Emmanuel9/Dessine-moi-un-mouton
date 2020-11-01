@@ -166,17 +166,4 @@ public class Main {
 		return new Fresque(dessins);
 	}
 	
-	public static Point[] createAxe(final Point debut, final Point fin) {
-		int distance = new Ligne(debut, fin, 1).longueur();
-		Point[] axe = new Point[distance];
-		for(int i = 0; i < distance; i++) {
-			if(debut.getX() == fin.getX()) axe[i] = new Point(debut.getX() + i, debut.getY());
-			if(debut.getY() == fin.getY()) axe[i] = new Point(debut.getX(), debut.getY() + i);
-			
-		
-		}
-		
-		return axe;
-	}
-	
 }

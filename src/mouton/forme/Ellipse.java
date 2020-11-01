@@ -5,7 +5,7 @@ package mouton.forme;
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public final class Ellipse extends Forme implements Comparable<Forme>{
+public final class Ellipse extends Forme{
 
 
 	private final int demiGrandAxe, demiPetitAxe;

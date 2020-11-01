@@ -23,14 +23,6 @@ public abstract class Forme implements Comparable<Forme>, Transformable, Calcula
 	 */
 	public Point getCentre() {return this.centre;}
 	
-	public int getOrdonneeOrigine(final Point[] axeDeSymetrie) {
-		for(Point point: axeDeSymetrie) {
-			if(point.getY() == 0) {
-				return point.getX();
-			}
-		}
-		return 0;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

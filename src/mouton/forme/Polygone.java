@@ -3,16 +3,14 @@ package mouton.forme;
 import java.util.Arrays;
 
 /**
- * 
  * @author Marc-Emmanuel MARTINO, Guillaume TRIJAU
  * @version 1.0
  */
-public final class Polygone extends Forme implements Comparable<Forme>{
+public final class Polygone extends Forme{
 	
 	private final Ligne[] sommet;
 	
 	/**
-	 * 
 	 * @param centre	point représentant le centre du polygone
 	 * @param sommet	tableau de ligne qui compose le polygone
 	 */

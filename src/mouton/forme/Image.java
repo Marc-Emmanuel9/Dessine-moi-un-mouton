@@ -10,7 +10,7 @@ import java.util.*;
 public class Image implements Iterable<Forme>, Comparable<Image>, Calculable, Transformable {
 
 
-	Set<Forme> formes;
+	private Set<Forme> formes;
 	
 	/**
 	 * 
